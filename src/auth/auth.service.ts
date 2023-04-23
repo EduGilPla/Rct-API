@@ -1,6 +1,7 @@
 import {
   ForbiddenException,
   Injectable,
+  NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { AuthDto } from './dto';
@@ -10,9 +11,7 @@ import { PrismaClientKnownRequestError } from '@prisma/client/runtime/library';
 @Injectable({})
 export class AuthService {
   constructor(private prisma: PrismaService) {}
-  signin() {
-    return { msg: 'Se ha iniciado sesión' };
-  }
+  
   async signup(dto: AuthDto) {
     const hash = await argon.hash(dto.password);
     try {
@@ -37,5 +36,26 @@ export class AuthService {
       }
       throw error;
     }
+  }
+  async signin(dto: AuthDto) {
+    //find user by email
+    const user = 
+      await this.prisma.user.findFirst({
+        where: {
+          email: dto.email,
+        },
+    });
+    if (!user) throw new NotFoundException(
+      'El usuario no existe'
+    );
+    const pwMatches = await argon.verify(
+      user.hash,
+      dto.password,
+    );
+    if(!pwMatches) throw new ForbiddenException(
+      'Contraseña incorrecta',
+    );
+    delete user.hash;
+    return user;
   }
 }
