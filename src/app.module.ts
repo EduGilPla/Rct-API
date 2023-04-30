@@ -4,15 +4,23 @@ import { Module } from '@nestjs/common';
 import { UserModule } from './user/user.module';
 import { MotherboardModule } from './motherboard/motherboard.module';
 import { AuthModule } from './auth/auth.module';
-import { PrismaModule } from './prisma/prisma.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { DataSource } from 'typeorm';
+import { TypeOrmConfigService } from './shared/typeorm/typeorm.service';
+import { getEnvPath } from './common/helper/env.helper';
+
+const envFilePath: string = getEnvPath(`${__dirname}/common/envs`);
 
 @Module({
   imports: [
     UserModule,
     MotherboardModule,
     AuthModule,
-    PrismaModule,
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({ envFilePath,isGlobal: true }),
+    TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService}),
+    UserModule,
   ],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private dataSource: DataSource) {}
+}
