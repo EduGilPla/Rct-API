@@ -1,10 +1,9 @@
 import { User } from '@/user/user.model';
 import {
-  ForbiddenException,
   HttpException,
   HttpStatus,
   Injectable,
-  NotFoundException,
+  Inject,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -16,22 +15,18 @@ export class AuthService {
   @InjectRepository(User)
   private readonly userRepository: Repository<User>;
 
-  @InjectRepository(AuthHelper)
+  @Inject(AuthHelper)
   private readonly helper: AuthHelper;
 
   public async register(body: RegisterDto): Promise<User | never> {
-    const { firstName, email, password }: RegisterDto = body;
+    const { firstName, lastName ,email, password }: RegisterDto = body;
     let user: User = await this.userRepository.findOne({ where: { email } });
 
     if (user) {
       throw new HttpException('Already existing user', HttpStatus.CONFLICT)
     }
 
-    user = new User();
-
-    user.firstName = firstName;
-    user.email = email;
-    user.hash = this.helper.encodePassword(password);
+    user = new User(firstName, lastName, email, this.helper.encodePassword(password));
 
     return this.userRepository.save(user);
   }

@@ -13,7 +13,6 @@ const envFilePath: string = getEnvPath(`${__dirname}/common/envs`);
 
 @Module({
   imports: [
-    UserModule,
     MotherboardModule,
     AuthModule,
     ConfigModule.forRoot({ envFilePath,isGlobal: true }),

@@ -1,24 +1,28 @@
-import { Body, Controller, Post, Get } from "@nestjs/common"
+import { User } from "@/user/user.model";
+import { Body, Controller, Post, UseInterceptors, ClassSerializerInterceptor, UseGuards, Req } from "@nestjs/common"
+import { JwtAuthGuard } from "./auth.guard";
 import { AuthService } from "./auth.service";
-import { AuthDto } from "./dto";
+import { RegisterDto, LoginDto } from "./dto";
+import { Request } from 'express';
 
 @Controller('auth')
 export class AuthController{
-  constructor(private authService: AuthService){}
+  constructor(private readonly authService: AuthService){}
 
-  @Post('signup')
-  signup(@Body() dto: AuthDto) {
-    return this.authService.signup(dto);
+  @Post('register')
+  @UseInterceptors(ClassSerializerInterceptor)
+  register(@Body() dto: RegisterDto) {
+    return this.authService.register(dto);
   }
 
-  @Post('signin')
-  signin(@Body() dto: AuthDto) {
-    return this.authService.signin(dto);
+  @Post('login')
+  login(@Body() dto: LoginDto) {
+    return this.authService.login(dto);
   }
 
-  @Get('hello')
-  hello() {
-    return {message: "Holaa"};
+  @Post('refresh')
+  @UseGuards(JwtAuthGuard)
+  refresh (@Req() { user }: Request): Promise<string | never> {
+    return this.authService.refresh(<User>user)
   }
-
 }

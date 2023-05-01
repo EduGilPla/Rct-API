@@ -1,12 +1,23 @@
+import { Trim } from "class-sanitizer"
 import { IsEmail, IsNotEmpty, IsString } from "class-validator"
 
 export class RegisterDto {
-  @IsNotEmpty()
-  firstName: string
+  @Trim()
   @IsEmail()
   @IsNotEmpty()
-  email: string
+  readonly email: string
+
   @IsString()
   @IsNotEmpty()
-  password: string
+  readonly password: string
+
+  @Trim()
+  @IsString()
+  @IsNotEmpty()
+  readonly firstName: string
+
+  @Trim()
+  @IsString()
+  @IsNotEmpty()
+  readonly lastName: string
 }
