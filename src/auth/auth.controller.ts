@@ -1,5 +1,5 @@
 import { User } from "@/user/user.model";
-import { Body, Controller, Post, UseInterceptors, ClassSerializerInterceptor, UseGuards, Req } from "@nestjs/common"
+import { Body, Controller, Post, UseInterceptors, ClassSerializerInterceptor, UseGuards, Req, HttpCode, HttpStatus } from "@nestjs/common"
 import { JwtAuthGuard } from "./auth.guard";
 import { AuthService } from "./auth.service";
 import { RegisterDto, LoginDto } from "./dto";
@@ -16,6 +16,7 @@ export class AuthController{
   }
 
   @Post('login')
+  @HttpCode(HttpStatus.OK)
   login(@Body() dto: LoginDto) {
     return this.authService.login(dto);
   }
