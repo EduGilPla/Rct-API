@@ -1,7 +1,7 @@
 import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
 
-import { UserModule } from './user/user.module';
+import { UserModule } from './auth/user/user.module';
 import { MotherboardModule } from './motherboard/motherboard.module';
 import { AuthModule } from './auth/auth.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -13,11 +13,10 @@ const envFilePath: string = getEnvPath(`${__dirname}/common/envs`);
 
 @Module({
   imports: [
-    UserModule,
     MotherboardModule,
     AuthModule,
-    ConfigModule.forRoot({ envFilePath,isGlobal: true }),
-    TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService}),
+    ConfigModule.forRoot({ envFilePath, isGlobal: true }),
+    TypeOrmModule.forRootAsync({ useClass: TypeOrmConfigService }),
     UserModule,
   ],
 })
