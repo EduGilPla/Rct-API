@@ -1,4 +1,4 @@
-import { User } from "@/user/user.model";
+import { User } from "./user/user.model";
 import { Body, Controller, Post, UseInterceptors, ClassSerializerInterceptor, UseGuards, Req, HttpCode, HttpStatus } from "@nestjs/common"
 import { JwtAuthGuard } from "./auth.guard";
 import { AuthService } from "./auth.service";

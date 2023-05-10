@@ -1,5 +1,5 @@
-import { User } from "@/user/user.model";
-import { UserModule } from "@/user/user.module";
+import { User } from "@/auth/user/user.model";
+import { UserModule } from "@/auth/user/user.module";
 import { Module } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { JwtModule } from "@nestjs/jwt";

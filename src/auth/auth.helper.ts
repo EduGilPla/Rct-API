@@ -1,4 +1,4 @@
-import { User } from "@/user/user.model";
+import { User } from "@/auth/user/user.model";
 import { HttpException, HttpStatus, Injectable, UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { InjectRepository } from "@nestjs/typeorm";
@@ -26,7 +26,11 @@ export class AuthHelper {
   }
 
   public generateToken(user: User):string {
-    return this.jwt.sign({ id: user.id, email: user.email})
+    const payload = {
+      id: user.id, 
+      email: user.email,
+    }
+    return this.jwt.sign(payload)
   }
 
   public isPasswordValid(password: string, userPassword: string): boolean {
