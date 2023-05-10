@@ -1,4 +1,4 @@
-import { User } from '@/auth/user/user.model';
+import { User } from './user/user.model';
 import { Injectable, ExecutionContext } from '@nestjs/common';
 import { AuthGuard, IAuthGuard } from '@nestjs/passport';
 import { Request } from 'express';

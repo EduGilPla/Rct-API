@@ -1,4 +1,4 @@
-import { User } from "@/auth/user/user.model";
+import { User } from "./user/user.model";
 import { HttpException, HttpStatus, Injectable, UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { InjectRepository } from "@nestjs/typeorm";
