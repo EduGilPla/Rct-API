@@ -9,6 +9,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { AuthHelper } from './auth.helper';
 import { LoginDto, RegisterDto } from './dto';
+import { Role } from './role/role.enum';
 
 @Injectable({})
 export class AuthService {
@@ -26,7 +27,8 @@ export class AuthService {
       throw new HttpException('Already existing user', HttpStatus.CONFLICT)
     }
 
-    user = new User(firstName, lastName, email, this.helper.encodePassword(password));
+    const DEFAULT_ROLE = Role.USER;
+    user = new User(firstName, lastName, email, this.helper.encodePassword(password),DEFAULT_ROLE);
 
     return this.userRepository.save(user);
   }
