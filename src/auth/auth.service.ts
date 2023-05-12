@@ -27,7 +27,7 @@ export class AuthService {
       throw new HttpException('Already existing user', HttpStatus.CONFLICT)
     }
 
-    const DEFAULT_ROLE = Role.USER;
+    const DEFAULT_ROLE = [Role.USER];
     user = new User(firstName, lastName, email, this.helper.encodePassword(password),DEFAULT_ROLE);
 
     return this.userRepository.save(user);

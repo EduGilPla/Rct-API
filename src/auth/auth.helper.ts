@@ -29,6 +29,7 @@ export class AuthHelper {
     const payload = {
       id: user.id, 
       email: user.email,
+      roles: user.roles
     }
     return this.jwt.sign(payload)
   }
