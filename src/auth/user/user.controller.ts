@@ -1,4 +1,15 @@
-import { ClassSerializerInterceptor, Controller, Delete, Get, HttpCode, HttpStatus, Param, UseInterceptors } from "@nestjs/common";
+import { 
+  ClassSerializerInterceptor, 
+  Controller, 
+  Delete, 
+  Get, 
+  HttpCode, 
+  HttpStatus, 
+  Param, 
+  UseGuards, 
+  UseInterceptors 
+} from "@nestjs/common";
+import { AuthGuard } from "../auth.guard";
 import { UserService } from "./user.service";
 
 @Controller('user')
@@ -11,6 +22,7 @@ export class UserController {
   @Get('list')
   @HttpCode(HttpStatus.OK)
   @UseInterceptors(ClassSerializerInterceptor)
+  @UseGuards(AuthGuard)
   findAll(){
     return this.userService.findAll();
   }

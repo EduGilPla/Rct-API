@@ -25,13 +25,13 @@ export class AuthHelper {
     return this.userRepository.findOne(decoded.id);
   }
 
-  public generateToken(user: User):string {
+  public async generateToken(user: User):Promise<string> {
     const payload = {
-      id: user.id, 
+      sub: user.id, 
       email: user.email,
       roles: user.roles
     }
-    return this.jwt.sign(payload)
+    return await this.jwt.signAsync(payload)
   }
 
   public isPasswordValid(password: string, userPassword: string): boolean {

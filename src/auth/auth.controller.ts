@@ -9,7 +9,7 @@ import {
   Req, 
   HttpCode, 
   HttpStatus } from "@nestjs/common"
-import { JwtAuthGuard } from "./auth.guard";
+import { AuthGuard } from "./auth.guard";
 import { AuthService } from "./auth.service";
 import { RegisterDto, LoginDto } from "./dto";
 import { Request } from 'express';
@@ -31,7 +31,7 @@ export class AuthController{
   }
 
   @Post('refresh')
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(AuthGuard)
   refresh (@Req() { user }: Request): Promise<string | never> {
     return this.authService.refresh(<User>user)
   }
