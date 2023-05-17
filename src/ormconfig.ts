@@ -1,5 +1,6 @@
 import { User } from "./auth/user/user.model";
 import { DataSource } from "typeorm";
+import { Motherboard } from "./products/motherboard/motherboard.model";
 
 export default new DataSource({
   type: "postgres",
@@ -8,6 +9,6 @@ export default new DataSource({
   database: "rct",
   username: "postgres",
   password: "123",
-  entities: [User],
+  entities: [User,Motherboard],
   migrations: ['./migrations/**.js']
 })
