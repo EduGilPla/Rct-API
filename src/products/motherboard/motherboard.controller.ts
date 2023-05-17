@@ -1,4 +1,4 @@
-import { Body, ClassSerializerInterceptor, Controller, Get, HttpCode, HttpStatus, Inject, Post, UseInterceptors } from "@nestjs/common";
+import { Body, ClassSerializerInterceptor, Controller, Delete, Get, HttpCode, HttpStatus, Inject, Param, Post, UseInterceptors } from "@nestjs/common";
 import { MotherboardDto } from "./dto/motherboard.dto";
 import { MotherboardService } from "./motherboard.service";
 
@@ -18,5 +18,10 @@ export class MotherboardController {
   @UseInterceptors(ClassSerializerInterceptor)
   create(@Body() dto: MotherboardDto){
     return this.motherboardService.create(dto);
+  }
+
+  @Delete('delete/:id')
+  deleteMotherboard(@Param('id') id: number){
+    return this.motherboardService.remove(id);
   }
 }

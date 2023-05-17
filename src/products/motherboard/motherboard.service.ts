@@ -46,4 +46,13 @@ export class MotherboardService {
     return this.motherboardRepository.save(motherboard);
   }
 
+  async remove(id: number): Promise<Motherboard | never> {
+    const motherboard: Motherboard = await this.findOneById(id)
+
+    if(!motherboard){
+      throw new HttpException('Motherboard doesn´t exist', HttpStatus.NOT_FOUND)
+    }    
+    await this.motherboardRepository.delete(id);
+    return motherboard;
+  }
 }
