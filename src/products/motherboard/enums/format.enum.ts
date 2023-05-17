@@ -1,6 +1,6 @@
 export enum MotherboardFormat {
-  EATX = "E-ATX",
+  EATX = "EATX",
   ATX = "ATX",
-  MATX = "M-ATX",
+  MATX = "MATX",
   ITX = "ITX"
 }

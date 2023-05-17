@@ -3,14 +3,14 @@ import { Brand } from "../brands/brands.enum"
 
 export class definingTraits {
   @Column({name: "brand"})
-  private brand: Brand
+  public brand: Brand
   @Column({name: "model"})
-  private model: string
+  public model: string
   @Column({
     name: "price",
     type: "decimal"
   })
-  private price: number
+  public price: number
 
   private constructor(brand: Brand, model: string, price: number) {
     this.brand = brand,
@@ -18,7 +18,7 @@ export class definingTraits {
     this.price = price
   }
 
-  public create(brand: Brand, model: string, price: number){
+  public static create(brand: Brand, model: string, price: number){
     return new definingTraits(brand,model,price);
   }
 }

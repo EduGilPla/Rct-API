@@ -1,10 +1,12 @@
-import { Column, Entity } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { definingTraits } from "../common/traits.attribute";
 import { MotherboardFormat } from "./enums/format.enum";
 import { MemoryType } from "./enums/memoryType.enum";
 
 @Entity()
 export class Motherboard {
+  @PrimaryGeneratedColumn()
+  private id: number;
   @Column(() => definingTraits)
   private traits: definingTraits;
   @Column()
@@ -34,7 +36,7 @@ export class Motherboard {
       this.graphicsSocket = graphicsSocket
   }
 
-  public create(
+  public static create(
     traits: definingTraits, 
     format: MotherboardFormat,
     cpuSocket: string,
