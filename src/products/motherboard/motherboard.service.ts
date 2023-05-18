@@ -32,11 +32,11 @@ export class MotherboardService {
       memorySockets,
       graphicsSocket
     }: MotherboardDto = body
-    const formattedFormat: MotherboardFormat = (<any>MotherboardFormat)[format]
-    const formattedMemoryType: MemoryType = (<any>MemoryType)[memoryType]
-    const formattedBrand: Brand = (<any>Brand)[brand]
-    const traits: definingTraits = definingTraits.create(formattedBrand,model,price)
-    let motherboard: Motherboard =  await this.motherboardRepository.findOne({ where: { traits } })
+    const formattedFormat = <MotherboardFormat>format 
+    const formattedMemoryType = <MemoryType>memoryType
+    const formattedBrand = <Brand>brand
+    const traits = definingTraits.create(formattedBrand, model, price)
+    let motherboard: Motherboard = await this.motherboardRepository.findOne({ where: { traits } })
 
     if(motherboard) {
       throw new HttpException('Already existing motherboard', HttpStatus.CONFLICT)
