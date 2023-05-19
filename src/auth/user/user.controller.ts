@@ -5,6 +5,7 @@ import {
   Get, 
   HttpCode, 
   HttpStatus, 
+  Inject, 
   Param, 
   UseGuards, 
   UseInterceptors 
@@ -14,11 +15,9 @@ import { UserService } from "./user.service";
 
 @Controller('user')
 export class UserController {
+  @Inject(UserService)
   private readonly userService: UserService;
 
-  constructor(userService: UserService) {
-    this.userService = userService;
-  }
   @Get('list')
   @HttpCode(HttpStatus.OK)
   @UseInterceptors(ClassSerializerInterceptor)
