@@ -1,49 +1,66 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { definingTraits } from "../common/traits.attribute";
-import { MotherboardFormat } from "./enums/format.enum";
-import { MemoryType } from "./enums/memoryType.enum";
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+import { DefiningTraits } from '../common/traits.attribute';
+import { MotherboardFormat } from './enums/format.enum';
+import { MemoryType } from './enums/memoryType.enum';
 
 @Entity()
 export class Motherboard {
   @PrimaryGeneratedColumn()
   private id: number;
-  @Column(() => definingTraits)
-  private traits: definingTraits;
+  @Column(() => DefiningTraits)
+  private traits: DefiningTraits;
   @Column()
-  private format: MotherboardFormat
+  private format: MotherboardFormat;
   @Column()
-  private cpuSocket: string
+  private cpuSocket: string;
   @Column()
-  private memoryType: MemoryType
+  private memoryType: MemoryType;
   @Column()
-  private memorySockets: number
+  private memorySockets: number;
   @Column()
-  private graphicsSocket: string
-  
+  private graphicsSocket: string;
+
   private constructor(
-    traits: definingTraits, 
+    traits: DefiningTraits,
     format: MotherboardFormat,
     cpuSocket: string,
     memoryType: MemoryType,
     memorySockets: number,
-    graphicsSocket: string
-    ){
-      this.traits = traits,
-      this.format = format,
-      this.cpuSocket = cpuSocket,
-      this.memoryType = memoryType,
-      this.memorySockets = memorySockets,
-      this.graphicsSocket = graphicsSocket
+    graphicsSocket: string,
+  ) {
+    (this.traits = traits),
+    (this.format = format),
+    (this.cpuSocket = cpuSocket),
+    (this.memoryType = memoryType),
+    (this.memorySockets = memorySockets),
+    (this.graphicsSocket = graphicsSocket);
   }
 
   public static create(
-    traits: definingTraits, 
-    format: MotherboardFormat,
+    traits: DefiningTraits,
+    format: string,
     cpuSocket: string,
-    memoryType: MemoryType,
+    memoryType: string,
     memorySockets: number,
-    graphicsSocket: string
+    graphicsSocket: string,
   ) {
-    return new Motherboard(traits, format, cpuSocket, memoryType, memorySockets, graphicsSocket)
+    const castedToEnumFormat = <
+      MotherboardFormat
+    >format;
+    const castedToEnumMemoryType = <MemoryType>(
+      memoryType
+    );
+    return new Motherboard(
+      traits,
+      castedToEnumFormat,
+      cpuSocket,
+      castedToEnumMemoryType,
+      memorySockets,
+      graphicsSocket,
+    );
   }
 }
