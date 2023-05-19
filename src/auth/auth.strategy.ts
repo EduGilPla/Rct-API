@@ -1,4 +1,4 @@
-import { User } from "@/auth/user/user.model";
+import { User } from "./user/user.model";
 import { Inject, Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { PassportStrategy } from "@nestjs/passport";
