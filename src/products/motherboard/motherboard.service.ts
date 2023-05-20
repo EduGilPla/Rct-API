@@ -34,14 +34,10 @@ export class MotherboardService {
       .execute();
 
     if (existingMotherboardTraits.length != 0) {
-      const { traitsBrand, traitsModel } = existingMotherboardTraits[0];
-
-      if (traitsBrand == brand && traitsModel == model) {
-        throw new HttpException(
-          'Already existing motherboard',
-          HttpStatus.CONFLICT,
-        );
-      }
+      throw new HttpException(
+        'Already existing motherboard',
+        HttpStatus.CONFLICT,
+      );
     }
 
     const motherboard = Motherboard.createFromDto(motherboardDto);
