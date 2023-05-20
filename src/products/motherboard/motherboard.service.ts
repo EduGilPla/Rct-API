@@ -1,11 +1,6 @@
-import {
-  HttpException,
-  HttpStatus,
-  Injectable,
-} from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { DefiningTraits } from '../common/traits.attribute';
 import { MotherboardDto } from './dto/motherboard.dto';
 import { Motherboard } from './motherboard.model';
 
@@ -18,120 +13,64 @@ export class MotherboardService {
     return this.motherboardRepository.find();
   }
 
-  async findOneById(
-    id: number,
-  ): Promise<Motherboard | null> {
-    const motherboard =
-      await this.motherboardRepository.findOneBy({
-        id,
-      });
+  async findOneById(id: number): Promise<Motherboard | null> {
+    const motherboard = await this.motherboardRepository.findOneBy({
+      id,
+    });
     if (!motherboard) {
-      throw new HttpException(
-        'Motherboard not found',
-        HttpStatus.NOT_FOUND,
-      );
+      throw new HttpException('Motherboard not found', HttpStatus.NOT_FOUND);
     }
     return motherboard;
   }
 
-  async create(
-    body: MotherboardDto,
-  ): Promise<Motherboard | never> {
-    const {
-      brand,
-      model,
-      price,
-      format,
-      cpuSocket,
-      memoryType,
-      memorySockets,
-      graphicsSocket,
-    } = body;
+  async create(motherboardDto: MotherboardDto): Promise<Motherboard | never> {
+    const { brand, model } = motherboardDto;
 
-    const traits = DefiningTraits.create(
-      brand,
-      model,
-      price,
-    );
+    const existingMotherboardTraits = await this.motherboardRepository
+      .createQueryBuilder('Motherboard')
+      .select(['Motherboard.traitsBrand', 'Motherboard.traitsModel'])
+      .where('Motherboard.traitsBrand = :brand', { brand: brand })
+      .andWhere('Motherboard.traitsModel = :model', { model: model })
+      .execute();
 
-    let motherboard: Motherboard =
-      await this.motherboardRepository.findOne({
-        where: { traits },
-      });
+    if (existingMotherboardTraits.length != 0) {
+      const { traitsBrand, traitsModel } = existingMotherboardTraits[0];
 
-    if (motherboard) {
-      throw new HttpException(
-        'Already existing motherboard',
-        HttpStatus.CONFLICT,
-      );
+      if (traitsBrand == brand && traitsModel == model) {
+        throw new HttpException(
+          'Already existing motherboard',
+          HttpStatus.CONFLICT,
+        );
+      }
     }
 
-    motherboard = Motherboard.create(
-      traits,
-      format,
-      cpuSocket,
-      memoryType,
-      memorySockets,
-      graphicsSocket,
-    );
+    const motherboard = Motherboard.createFromDto(motherboardDto);
 
-    return this.motherboardRepository.save(
-      motherboard,
-    );
+    return this.motherboardRepository.save(motherboard);
   }
 
-  async update(
-    id: number,
-    body: MotherboardDto
-  ){
+  async update(id: number, motherboardDto: MotherboardDto) {
     const motherboardExists: Motherboard =
       await this.motherboardRepository.findOne({
         where: { id },
-    });
+      });
 
     if (!motherboardExists) {
       throw new HttpException(
-        'Motherboard with id: '+ id + ' doesn`t exist',
+        'Motherboard with id: ' + id + ' doesn`t exist',
         HttpStatus.NOT_FOUND,
       );
     }
 
-    const {
-      brand,
-      model,
-      price,
-      format,
-      cpuSocket,
-      memoryType,
-      memorySockets,
-      graphicsSocket,
-    } = body;
+    const motherboard = Motherboard.createFromDto(motherboardDto);
 
-    const traits = DefiningTraits.create(
-      brand,
-      model,
-      price,
-    );
-
-    const motherboard = Motherboard.create(
-      traits,
-      format,
-      cpuSocket,
-      memoryType,
-      memorySockets,
-      graphicsSocket,
-    );
-
-    await this.motherboardRepository.update(id, motherboard)
+    await this.motherboardRepository.update(id, motherboard);
 
     return await this.findOneById(id);
   }
 
-  async remove(
-    id: number,
-  ): Promise<Motherboard | never> {
-    const motherboard: Motherboard =
-      await this.findOneById(id);
+  async remove(id: number): Promise<Motherboard | never> {
+    const motherboard: Motherboard = await this.findOneById(id);
 
     if (!motherboard) {
       throw new HttpException(
