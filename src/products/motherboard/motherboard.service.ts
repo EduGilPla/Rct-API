@@ -42,7 +42,7 @@ export class MotherboardService {
 
     const motherboard = Motherboard.createFromDto(motherboardDto);
 
-    return this.motherboardRepository.save(motherboard);
+    return await this.motherboardRepository.save(motherboard);
   }
 
   async update(id: number, motherboardDto: MotherboardDto) {
