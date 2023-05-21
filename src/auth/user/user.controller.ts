@@ -10,7 +10,8 @@ import {
   UseGuards, 
   UseInterceptors 
 } from "@nestjs/common";
-import { AuthGuard } from "../auth.guard";
+import { IsAdminGuard } from "../guards/isAdmin.guard";
+import { ValidJwtGuard } from "../guards/validJwt.guard";
 import { UserService } from "./user.service";
 
 @Controller('user')
@@ -21,7 +22,7 @@ export class UserController {
   @Get('list')
   @HttpCode(HttpStatus.OK)
   @UseInterceptors(ClassSerializerInterceptor)
-  @UseGuards(AuthGuard)
+  @UseGuards(ValidJwtGuard, IsAdminGuard)
   findAll(){
     return this.userService.findAll();
   }
