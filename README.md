@@ -6,6 +6,12 @@
 
 [Nest](https://github.com/nestjs/nest) API para gestión y venta de equipos informáticos
 
+## Requisitos
+
+- Node - v20.0.0
+- Docker
+- Yarn
+
 ## Instalación
 
 ```bash
