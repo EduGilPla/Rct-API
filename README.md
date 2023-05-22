@@ -19,21 +19,20 @@
     <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
   <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
 </p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## Description
+## Descripción
 
-[Nest](https://github.com/nestjs/nest) API para gestión y venta de 
-equipos informáticos
+[Nest](https://github.com/nestjs/nest) API para gestión y venta de equipos informáticos
 
-## Installation
+## Instalación
 
 ```bash
 $ yarn install
+
+$ yarn db:initialize
 ```
 
-## Running the app
+## Lanzar la aplicación
 
 ```bash
 # development
@@ -59,15 +58,13 @@ $ yarn run test:e2e
 $ yarn run test:cov
 ```
 
-## Support
+## Soporte de Nest
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
 ## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- Author - [Eduardo Gil Plasencia](https://twitter.com/EduGilPla)
 
 ## License
 
