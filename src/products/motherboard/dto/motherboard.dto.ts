@@ -1,9 +1,8 @@
-import { Brand } from "@/products/brands/brands.enum";
+import { Brand } from "../../brands/brands.enum";
 import { Trim } from "class-sanitizer";
 import { IsEnum, IsNotEmpty, IsNumber, IsString } from "class-validator";
 import { MotherboardFormat } from "../enums/format.enum";
 import { MemoryType } from "../enums/memoryType.enum";
-
 
 export class MotherboardDto {
   @Trim()

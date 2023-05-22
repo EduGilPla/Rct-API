@@ -9,7 +9,7 @@ import {
   Req, 
   HttpCode, 
   HttpStatus } from "@nestjs/common"
-import { AuthGuard } from "./auth.guard";
+import { ValidJwtGuard } from "./guards/validJwt.guard";
 import { AuthService } from "./auth.service";
 import { RegisterDto, LoginDto } from "./dto";
 import { Request } from 'express';
@@ -31,7 +31,7 @@ export class AuthController{
   }
 
   @Post('refresh')
-  @UseGuards(AuthGuard)
+  @UseGuards(ValidJwtGuard)
   refresh (@Req() { user }: Request): Promise<string | never> {
     return this.authService.refresh(<User>user)
   }

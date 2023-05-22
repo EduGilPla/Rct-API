@@ -1,9 +1,6 @@
-import {
-  Column,
-  Entity,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { DefiningTraits } from '../common/traits.attribute';
+import { MotherboardDto } from './dto/motherboard.dto';
 import { MotherboardFormat } from './enums/format.enum';
 import { MemoryType } from './enums/memoryType.enum';
 
@@ -32,33 +29,55 @@ export class Motherboard {
     memorySockets: number,
     graphicsSocket: string,
   ) {
-    (this.traits = traits),
-    (this.format = format),
-    (this.cpuSocket = cpuSocket),
-    (this.memoryType = memoryType),
-    (this.memorySockets = memorySockets),
-    (this.graphicsSocket = graphicsSocket);
+      (this.traits = traits),
+      (this.format = format),
+      (this.cpuSocket = cpuSocket),
+      (this.memoryType = memoryType),
+      (this.memorySockets = memorySockets),
+      (this.graphicsSocket = graphicsSocket);
   }
 
   public static create(
-    traits: DefiningTraits,
+    brand: string,
+    model: string,
+    price: number,
     format: string,
     cpuSocket: string,
     memoryType: string,
     memorySockets: number,
     graphicsSocket: string,
-  ) {
-    const castedToEnumFormat = <
-      MotherboardFormat
-    >format;
-    const castedToEnumMemoryType = <MemoryType>(
-      memoryType
-    );
+  ): Motherboard {
+    const castedToEnumFormat = <MotherboardFormat>format;
+    const castedToEnumMemoryType = <MemoryType>memoryType;
+    const traits = DefiningTraits.create(brand, model, price);
     return new Motherboard(
       traits,
       castedToEnumFormat,
       cpuSocket,
       castedToEnumMemoryType,
+      memorySockets,
+      graphicsSocket,
+    );
+  }
+
+  public static createFromDto(dto: MotherboardDto) {
+    const {
+      brand,
+      model,
+      price,
+      format,
+      cpuSocket,
+      memoryType,
+      memorySockets,
+      graphicsSocket,
+    } = dto;
+    return Motherboard.create(
+      brand,
+      model,
+      price,
+      format,
+      cpuSocket,
+      memoryType,
       memorySockets,
       graphicsSocket,
     );
