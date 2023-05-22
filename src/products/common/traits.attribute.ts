@@ -16,30 +16,16 @@ export class DefiningTraits {
       from(value) {
         return parseFloat(value);
       },
-    }
+    },
   })
   public price: number;
 
-  private constructor(
-    brand: Brand,
-    model: string,
-    price: number,
-  ) {
-    (this.brand = brand),
-      (this.model = model),
-      (this.price = price);
+  private constructor(brand: Brand, model: string, price: number) {
+    (this.brand = brand), (this.model = model), (this.price = price);
   }
 
-  public static create(
-    brand: string,
-    model: string,
-    price: number,
-  ) {
+  public static create(brand: string, model: string, price: number) {
     const castedToEnumBrand = <Brand>brand;
-    return new DefiningTraits(
-      castedToEnumBrand,
-      model,
-      price,
-    );
+    return new DefiningTraits(castedToEnumBrand, model, price);
   }
 }
