@@ -14,9 +14,7 @@ export class MotherboardService {
   }
 
   async findOneById(id: number): Promise<Motherboard | null> {
-    const motherboard = await this.motherboardRepository.findOneBy({
-      id,
-    });
+    const motherboard = await this.motherboardRepository.findOneBy({ id });
     if (!motherboard) {
       throw new HttpException('Motherboard not found', HttpStatus.NOT_FOUND);
     }
