@@ -1,0 +1,315 @@
+{
+	"info": {
+		"_postman_id": "7eb3a0d9-2f3a-449e-ab34-d8cfcee69ccc",
+		"name": "Proyecto RCT API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "AuthController",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"viren@viren.com\",\r\n    \"password\": \"1234\",\r\n    \"firstName\": \"Viren\",\r\n    \"lastName\": \"Dhanwani\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{IPADDR}}:{{PORT}}/auth/register",
+							"protocol": "http",
+							"host": [
+								"{{IPADDR}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"viren@viren.com\",\r\n    \"password\": \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{IPADDR}}:{{PORT}}/auth/login",
+							"protocol": "http",
+							"host": [
+								"{{IPADDR}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiJ2aXJlbkB2aXJlbi5jb20iLCJyb2xlcyI6WyJ1c2VyIl0sImlhdCI6MTY4MzkwMjU0NywiZXhwIjoxNzE1NDM4NTQ3fQ.ZbBJQOoEmhOWoG57qfAWJBUTiEWWaA8Y8JlRviYKiTI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://{{IPADDR}}:{{PORT}}/auth/refresh",
+							"protocol": "http",
+							"host": [
+								"{{IPADDR}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "UserController",
+			"item": [
+				{
+					"name": "FindAll",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsIjoidmlyZW5AdmlyZW4uY29tIiwicm9sZXMiOlsidXNlciJdLCJpYXQiOjE2ODQ3ODA2NzMsImV4cCI6MTY4NDg2NzA3M30.fB88J3u6Sfq8wvbooHGFdOUD7DGnkTSInS4RPKZi1G0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{IPADDR}}:{{PORT}}/user/list",
+							"protocol": "http",
+							"host": [
+								"{{IPADDR}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"user",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{IPADDR}}:{{PORT}}/user/remove/1",
+							"protocol": "http",
+							"host": [
+								"{{IPADDR}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"user",
+								"remove",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MotherboardController",
+			"item": [
+				{
+					"name": "FindAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{IPADDR}}:{{PORT}}/motherboard/list",
+							"protocol": "http",
+							"host": [
+								"{{IPADDR}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"motherboard",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Motherboard",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"brand\": \"GIGABYTE\",\r\n    \"model\": \"H510M-E PLUS\",\r\n    \"price\": 220.00,\r\n    \"format\": \"EATX\",\r\n    \"cpuSocket\": \"AM5\",\r\n    \"memoryType\": \"DDR5\",\r\n    \"memorySockets\": 8,\r\n    \"graphicsSocket\": \"GDDR5\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{IPADDR}}:{{PORT}}/motherboard/create",
+							"protocol": "http",
+							"host": [
+								"{{IPADDR}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"motherboard",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Read Motherboard",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://{{IPADDR}}:{{PORT}}/motherboard/read/3",
+							"protocol": "http",
+							"host": [
+								"{{IPADDR}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"motherboard",
+								"read",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Motherboard",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"brand\": \"ASUS\",\r\n    \"model\": \"TUF B450-M PLUS\",\r\n    \"price\": 150.50,\r\n    \"format\": \"ATX\",\r\n    \"cpuSocket\": \"AM4\",\r\n    \"memoryType\": \"DDR4\",\r\n    \"memorySockets\": 4,\r\n    \"graphicsSocket\": \"GDDR5\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://{{IPADDR}}:{{PORT}}/motherboard/update/1",
+							"protocol": "http",
+							"host": [
+								"{{IPADDR}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"motherboard",
+								"update",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Motherboard",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://{{IPADDR}}:{{PORT}}/motherboard/delete/2",
+							"protocol": "http",
+							"host": [
+								"{{IPADDR}}"
+							],
+							"port": "{{PORT}}",
+							"path": [
+								"motherboard",
+								"delete",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "IPADDR",
+			"value": "localhost"
+		},
+		{
+			"key": "PORT",
+			"value": "3000",
+			"type": "default"
+		}
+	]
+}
