@@ -1,22 +1,23 @@
-import { User } from "./user/user.model";
-import { 
-  Body, 
-  Controller, 
-  Post, 
-  UseInterceptors, 
-  ClassSerializerInterceptor, 
-  UseGuards, 
-  Req, 
-  HttpCode, 
-  HttpStatus } from "@nestjs/common"
-import { ValidJwtGuard } from "./guards/validJwt.guard";
-import { AuthService } from "./auth.service";
-import { RegisterDto, LoginDto } from "./dto";
+import { User } from './user/user.model';
+import {
+  Body,
+  Controller,
+  Post,
+  UseInterceptors,
+  ClassSerializerInterceptor,
+  UseGuards,
+  Req,
+  HttpCode,
+  HttpStatus,
+} from '@nestjs/common';
+import { ValidJwtGuard } from './guards/validJwt.guard';
+import { AuthService } from './auth.service';
+import { RegisterDto, LoginDto } from './dto';
 import { Request } from 'express';
 
 @Controller('auth')
-export class AuthController{
-  constructor(private readonly authService: AuthService){}
+export class AuthController {
+  constructor(private readonly authService: AuthService) {}
 
   @Post('register')
   @UseInterceptors(ClassSerializerInterceptor)
@@ -32,7 +33,7 @@ export class AuthController{
 
   @Post('refresh')
   @UseGuards(ValidJwtGuard)
-  refresh (@Req() { user }: Request): Promise<string | never> {
-    return this.authService.refresh(<User>user)
+  refresh(@Req() { user }: Request): Promise<string | never> {
+    return this.authService.refresh(<User>user);
   }
 }

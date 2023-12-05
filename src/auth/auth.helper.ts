@@ -1,8 +1,13 @@
-import { User } from "./user/user.model";
-import { HttpException, HttpStatus, Injectable, UnauthorizedException } from "@nestjs/common";
-import { JwtService } from "@nestjs/jwt";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Repository } from "typeorm";
+import { User } from './user/user.model';
+import {
+  HttpException,
+  HttpStatus,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
 
 @Injectable()
@@ -25,13 +30,13 @@ export class AuthHelper {
     return this.userRepository.findOne(decoded.id);
   }
 
-  public async generateToken(user: User):Promise<string> {
+  public async generateToken(user: User): Promise<string> {
     const payload = {
-      sub: user.id, 
+      sub: user.id,
       email: user.email,
-      roles: user.roles
-    }
-    return await this.jwt.signAsync(payload)
+      roles: user.roles,
+    };
+    return await this.jwt.signAsync(payload);
   }
 
   public isPasswordValid(password: string, userPassword: string): boolean {
@@ -47,7 +52,7 @@ export class AuthHelper {
   private async validate(token: string): Promise<boolean | never> {
     const decoded: unknown = this.jwt.verify(token);
 
-    if(!decoded) {
+    if (!decoded) {
       throw new HttpException('Forbidden', HttpStatus.FORBIDDEN);
     }
 
@@ -56,8 +61,7 @@ export class AuthHelper {
     if (!user) {
       throw new UnauthorizedException();
     }
-    
+
     return true;
   }
-
 }

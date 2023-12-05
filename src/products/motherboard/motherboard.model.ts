@@ -29,7 +29,7 @@ export class Motherboard {
     memorySockets: number,
     graphicsSocket: string,
   ) {
-      (this.traits = traits),
+    (this.traits = traits),
       (this.format = format),
       (this.cpuSocket = cpuSocket),
       (this.memoryType = memoryType),

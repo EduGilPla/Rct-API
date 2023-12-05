@@ -1,4 +1,9 @@
-import { Injectable, ExecutionContext, CanActivate, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  ExecutionContext,
+  CanActivate,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { Request } from 'express';
 import { jwtConstants } from '../constants';
 import { JwtService } from '@nestjs/jwt';
@@ -12,13 +17,10 @@ export class IsAdminGuard implements CanActivate {
     const token = this.extractTokenFromHeader(request);
 
     try {
-      const payload = await this.jwtService.verifyAsync(
-        token,
-        {
-          secret: jwtConstants.secret
-        }
-      );
-      if(!payload.roles.includes('admin')){
+      const payload = await this.jwtService.verifyAsync(token, {
+        secret: jwtConstants.secret,
+      });
+      if (!payload.roles.includes('admin')) {
         throw new UnauthorizedException();
       }
     } catch {

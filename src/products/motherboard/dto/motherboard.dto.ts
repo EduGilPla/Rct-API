@@ -1,35 +1,35 @@
-import { Brand } from "../../brands/brands.enum";
-import { Trim } from "class-sanitizer";
-import { IsEnum, IsNotEmpty, IsNumber, IsString } from "class-validator";
-import { MotherboardFormat } from "../enums/format.enum";
-import { MemoryType } from "../enums/memoryType.enum";
+import { Brand } from '../../brands/brands.enum';
+import { Trim } from 'class-sanitizer';
+import { IsEnum, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { MotherboardFormat } from '../enums/format.enum';
+import { MemoryType } from '../enums/memoryType.enum';
 
 export class MotherboardDto {
   @Trim()
   @IsString()
   @IsEnum(Brand)
   @IsNotEmpty()
-  brand: string
-  @Trim(" ")
+  brand: string;
+  @Trim(' ')
   @IsString()
   @IsNotEmpty()
-  model: string
+  model: string;
   @IsNumber()
-  price: number
+  price: number;
   @IsString()
   @IsNotEmpty()
   @IsEnum(MotherboardFormat)
-  format: string
+  format: string;
   @IsString()
   @IsNotEmpty()
-  cpuSocket: string
+  cpuSocket: string;
   @IsString()
   @IsNotEmpty()
   @IsEnum(MemoryType)
-  memoryType: string
+  memoryType: string;
   @IsNumber()
-  memorySockets: number
+  memorySockets: number;
   @IsString()
   @IsNotEmpty()
-  graphicsSocket: string
+  graphicsSocket: string;
 }
