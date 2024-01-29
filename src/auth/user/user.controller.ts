@@ -22,7 +22,6 @@ export class UserController {
 
   @Get('list')
   @HttpCode(HttpStatus.OK)
-  @UseInterceptors(ClassSerializerInterceptor)
   @UseGuards(ValidJwtGuard, IsAdminGuard)
   findAll() {
     return this.userService.findAll();
